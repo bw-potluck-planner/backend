@@ -25,17 +25,11 @@ exports.up = function(knex) {
   })
 
   .createTable('profile', tbl => {
+    tbl.increments()
       tbl.string('name').notNullable()
       tbl.string('contact').notNullable()
       tbl.boolean('confirmation')
-      tbl.integer('users_id')
-      .notNullable()
-      .references('id')
-      .inTable('users')
-      .onUpdate('CASCADE')
-      .onDelete('CASCADE')
-
-      tbl.primary(['users_id'])
+      tbl.string('username')
   })
 };
 
