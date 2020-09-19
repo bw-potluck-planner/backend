@@ -4,13 +4,13 @@ exports.seed = function(knex) {
       name: 'Ariadne',
       contact: '1-555-555-5555',
       confirmation: true,
-      users_id: 1,
+      username: 'ariadne'
     },
     {
       name: 'Cassandra',
       contact: '1-555-123-4567',
       confirmation: true,
-      users_id: 2,
+      username: 'cassandra_of_troy'
     },
   ])
 }
