@@ -23,4 +23,9 @@ server.use('/api/users', userRouter)
 server.use('/api/potluck', authenticate, potluckRouter)
 server.use('/api/profile', authenticate, profileRouter)
 
+server.get('/', (req, res) => {
+    res.send(`<h2>Backend API App for Potluck Planner!</h2>`);
+  });
+  
+
 module.exports = server
