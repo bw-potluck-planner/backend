@@ -10,6 +10,8 @@ exports.up = function(knex) {
 
       tbl.string('password')
       .notNullable()
+
+      tbl.string('role')
   })
 
   .createTable('potluck', tbl => {
@@ -30,6 +32,7 @@ exports.up = function(knex) {
       tbl.string('contact').notNullable()
       tbl.boolean('confirmation')
       tbl.string('username')
+      tbl.string('role')
   })
 };
 
