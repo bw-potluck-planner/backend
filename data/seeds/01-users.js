@@ -2,11 +2,13 @@ exports.seed = function(knex) {
   return knex('users').insert([
     {
       username: 'ariadne',
-      password: 'pass'
+      password: 'pass',
+      role: 'guest'
     },
     {
       username: 'cassandra_of_troy',
-      password: 'pass'
+      password: 'pass',
+      role: 'organizer'
     }
   ])
 }
