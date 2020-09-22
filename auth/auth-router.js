@@ -17,7 +17,7 @@ router.post('/register', (req, res) => {
         Users.add(credentials)
         .then(user => {
             const token = makeJwt(user)
-            res.status(201).json({data: user})
+            res.status(201).json({data: user, token})
         })
         //may need to change to res.status(201).json(user)
         .catch(error => {

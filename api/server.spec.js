@@ -3,6 +3,7 @@ const supertest = require('supertest')
 const server = require('./server')
 const db = require('../data/dbConfig')
 
+let token;
 
 describe("server", () => {
 
@@ -14,8 +15,9 @@ describe("server", () => {
         it('should return 201 when passed correct data', () => {
             return supertest(server)
                 .post('/api/auth/register')
-                .send({ username: 'test6', password: 'testing', role: 'tester' })
+                .send({ username: 'testauth22', password: 'testing', role: 'tester' })
                 .then(res => {
+                
                     expect(res.status).toBe(201)
                 })
         })
@@ -33,13 +35,18 @@ describe("server", () => {
 
 
     describe('/api/auth/login', () => {
+        
+     
 
         it('should return 201 when user logs in', () => {
             return supertest(server)
                 .post('/api/auth/login')
-                .send({ username: 'test6', password: 'testing' })
+                .send({ username: 'testauth22', password: 'testing' })
+               
                 .then(res => {
                     expect(res.status).toBe(200)
+                    token = res.body.token
+                    console.log(res.body.token)
                 })
         })
 
@@ -53,23 +60,51 @@ describe("server", () => {
         })
     })
 
-    // describe('/api/users', () => {
-    //     beforeAll(async (done) => {
-    //     supertest(server)
-    //     .post('/api/auth/login')
-    //     .send({
-    //         username: 'test6',
-    //         password: 'testing',
-    //     })
-    //     })
+    describe('/api/users', () => {
+        beforeEach(async () => {
+            await db('users')
+        })
 
-    //     it('should return a list of users when logged in', () => {
-    //         return supertest(server)
-    //             .get('/api/users')
-    //             .then(res => {
-    //                 expect(res.status).toBe(200)
-    //             })
-    //     })
-    // })
 
+        it("should return a list of users", async () => {
+            return supertest(server)
+            .get('/api/users')
+            .set('Authorization', `${token}`)
+            .then(res => {
+                expect(res.status).toBe(200)
+            })
+        })
+
+    })
+
+    describe('/api/profile', () => {
+        beforeEach(async () => {
+            await db('users')
+        })
+
+        it('should return a list of profiles', async () => {
+            return supertest(server)
+            .get('/api/profile')
+            .set('Authorization', `${token}`)
+            .then(res => {
+                expect(res.status).toBe(200)
+            })
+        })
+    })
+
+    describe('/api/potluck', () => {
+        beforeEach(async () => {
+            await db('users')
+        })
+
+        it('should return a list of potluckss', async () => {
+            return supertest(server)
+            .get('/api/potluck')
+            .set('Authorization', `${token}`)
+            .then(res => {
+                expect(res.status).toBe(200)
+            })
+        })
+    })
 })
+
